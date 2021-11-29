@@ -1,0 +1,12 @@
+button {
+  padding: 6px 40px;
+  margin: 10px;
+}
+
+input[type="text"] {
+  width: 200p;
+  padding: 6px 6px;
+
+  border: 2px solid gray;
+  border-radius: 4px;
+}

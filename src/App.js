@@ -1,6 +1,7 @@
 import React from "react";
 import TodoList from "./components/TodoList";
 import TodoForm from "./components/TodoForm";
+import "./App.css";
 const todos = [
   {
     task: "Organize Garage",
@@ -34,12 +35,24 @@ class App extends React.Component {
   handleAddTodo = (todo) => {
     const newTodo = {
       task: todo,
-      id: Date.now,
+      id: Date.now(),
       completed: false,
     };
     this.setState({
       ...this.state,
       todos: [...this.state.todos, newTodo],
+    });
+  };
+
+  handleToggleTodo = (todo) => {
+    this.setState({
+      todos: this.state.todos.map((task) => {
+        if (task.id === todo.id) {
+          return { ...task, completed: !task.completed };
+        } else {
+          return task;
+        }
+      }),
     });
   };
   // you will need a place to store your state in this component.
@@ -49,8 +62,12 @@ class App extends React.Component {
     return (
       <div>
         <h2>Welcome to your Todo App!</h2>
-        <TodoList todos={this.state.todos} />
+        <TodoList
+          handleToggleTodo={this.handleToggleTodo}
+          todos={this.state.todos}
+        />
         <TodoForm handleAddTodo={this.handleAddTodo} />
+        <button onClick={this.handleToggle}>Clear</button>
       </div>
     );
   }
